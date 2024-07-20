@@ -28,7 +28,7 @@
         /// </summary>
         /// <param name="book">integer</param>
         /// <returns>List of integers</returns>
-        public IEnumerable<List<int>> GetGroupsThatDoNotContainBook(int book) => _bookGroups.Where(bg => !bg.Contains(book));
+        public IEnumerable<List<int>> GetGroupsThatDoNotContainGivenBook(int book) => _bookGroups.Where(bg => !bg.Contains(book));
 
         /// <summary>
         /// gets a collection of groups

@@ -65,19 +65,19 @@
             {
                 var combo = new BookCombinations();
 
-                foreach (int book in books)
+                foreach (int bookNumber in books)
                 {
-                    var groups = combo.GetGroupsThatDoNotContainBook(book);
+                    var groups = combo.GetGroupsThatDoNotContainGivenBook(bookNumber);
 
                     List<int>? group = groups.FirstOrDefault(g => g.Count < i);
 
                     if (group != null)
                     {
-                        group.Add(book);
+                        group.Add(bookNumber);
                     }
                     else
                     {
-                        combo.AddBook(book);
+                        combo.AddBook(bookNumber);
                     }
                 }
 
