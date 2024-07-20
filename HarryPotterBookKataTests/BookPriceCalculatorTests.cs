@@ -16,7 +16,7 @@ namespace HarryPotterBookKataTests
         [Test]
         public void ZeroBooks_CostsZero()
         {
-            List<int> books = GenerateBooksList();
+            List<int> books = CreateListofBooks();
 
             var cost = _bookPriceCalculator.Calculate(books);
 
@@ -31,7 +31,7 @@ namespace HarryPotterBookKataTests
         [TestCase(Books.OrderofthePhoenix)]
         public void OneCopyOfABook_CostsEight(int bookNumber)
         {
-            List<int> books = GenerateBooksList(bookNumber);
+            List<int> books = CreateListofBooks(bookNumber);
 
             var cost = _bookPriceCalculator.Calculate(books);
 
@@ -42,7 +42,7 @@ namespace HarryPotterBookKataTests
         [TestCase(Books.ChamberOfSecrets, Books.ChamberOfSecrets)]
         public void TwoCoppiesOfSameBook_CostsSixteen(int firstBook, int secondBook)
         {
-            List<int> books = GenerateBooksList(firstBook, secondBook);
+            List<int> books = CreateListofBooks(firstBook, secondBook);
 
             var cost = _bookPriceCalculator.Calculate(books);
 
@@ -52,7 +52,7 @@ namespace HarryPotterBookKataTests
         [Test]
         public void TwoDifferentBooks_GetFivePercentDiscount()
         {
-            List<int> books = GenerateBooksList((int)Books.PhilosophersStone, (int)Books.PrisonerofAzkaban);
+            List<int> books = CreateListofBooks((int)Books.PhilosophersStone, (int)Books.PrisonerofAzkaban);
 
             var cost = _bookPriceCalculator.Calculate(books);
 
@@ -62,7 +62,7 @@ namespace HarryPotterBookKataTests
         [Test]
         public void ThreeDifferentBooks_GetTenPercentDiscount()
         {
-            List<int> books = GenerateBooksList(
+            List<int> books = CreateListofBooks(
                 (int)Books.PhilosophersStone,
                 (int)Books.GobletofFire,
                 (int)Books.PrisonerofAzkaban
@@ -76,7 +76,7 @@ namespace HarryPotterBookKataTests
         [Test]
         public void FourDifferentBooks_GetTwentyPercentDiscount()
         {
-            List<int> books = GenerateBooksList(
+            List<int> books = CreateListofBooks(
                 (int)Books.PhilosophersStone,
                 (int)Books.ChamberOfSecrets,
                 (int)Books.OrderofthePhoenix,
@@ -91,7 +91,7 @@ namespace HarryPotterBookKataTests
         [Test]
         public void FiveDifferentBooks_GetTwentyFivePercentDiscount()
         {
-            List<int> books = GenerateBooksList(
+            List<int> books = CreateListofBooks(
                 (int)Books.PhilosophersStone,
                 (int)Books.ChamberOfSecrets,
                 (int)Books.PrisonerofAzkaban,
@@ -107,7 +107,7 @@ namespace HarryPotterBookKataTests
         [Test]
         public void ThreeBooksTwoDifferent_GetFivePercentDiscountOnTwoOfThem()
         {
-            List<int> books = GenerateBooksList(
+            List<int> books = CreateListofBooks(
                 (int)Books.PhilosophersStone,
                 (int)Books.ChamberOfSecrets,
                 (int)Books.PhilosophersStone
@@ -121,7 +121,7 @@ namespace HarryPotterBookKataTests
         [Test]
         public void ManyBooks_GetsBestPrice()
         {
-            List<int> books = GenerateBooksList(
+            List<int> books = CreateListofBooks(
                 (int)Books.PhilosophersStone,
                 (int)Books.PhilosophersStone,
                 (int)Books.ChamberOfSecrets,
@@ -137,7 +137,7 @@ namespace HarryPotterBookKataTests
             Assert.That(cost, Is.EqualTo(51.2m));
         }
 
-        private List<int> GenerateBooksList(params int[] books)
+        private List<int> CreateListofBooks(params int[] books)
         {
             List<int> booksList = [.. books];
 

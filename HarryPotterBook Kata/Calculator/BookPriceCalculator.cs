@@ -6,13 +6,6 @@
     public class BookPriceCalculator
     {
 
-        //consts to hold price & discounts
-        private const decimal singlePrice = 8;
-        private const decimal twoBooksDiscountFactor = 0.95m;
-        private const decimal threeBooksDiscountFactor = 0.9m;
-        private const decimal fourBooksDiscountFactor = 0.8m;
-        private const decimal fiveBooksDiscountFactor = 0.75m;
-
         /// <summary>
         /// Calculate price of one or more books, with discounts
         /// </summary>
@@ -26,19 +19,19 @@
 
             List<BookCombinations> combos = CalculateCombos(books);
 
-            var minPrice = decimal.MaxValue;
+            var lowestPrice = decimal.MaxValue;
 
             foreach (BookCombinations combo in combos)
             {
                 var comboPrice = CalculateComboPrice(combo);
 
-                if (comboPrice < minPrice)
+                if (comboPrice < lowestPrice)
                 {
-                    minPrice = comboPrice;
+                    lowestPrice = comboPrice;
                 }
             }
 
-            return minPrice;
+            return lowestPrice;
         }
 
         /// <summary>
@@ -48,19 +41,19 @@
         /// <returns>price as a decimal</returns>
         private decimal CalculateComboPrice(BookCombinations combo)
         {
-            decimal comboPrice = 0;
+            var comboPrice = 0m;
 
             foreach (List<int> books in combo.Groups)
             {
                 var discountFactor = CalculateDiscountFactor(books);
-                comboPrice += books.Count * singlePrice * discountFactor;
+                comboPrice += books.Count * BookPriceCalculatorHelpers.singlePrice * discountFactor;
             }
 
             return comboPrice;
         }
 
         /// <summary>
-        /// Returns a list of Book Combinations
+        /// Calculates a list of Book Combinations
         /// </summary>
         /// <param name="books">List of Books</param>
         /// <returns>List of Book Combinations</returns>
@@ -74,9 +67,10 @@
 
                 foreach (int book in books)
                 {
-                    IEnumerable<List<int>> groups = combo.GetGroupsThatDoNotContainBook(book);
+                    var groups = combo.GetGroupsThatDoNotContainBook(book);
 
                     List<int>? group = groups.FirstOrDefault(g => g.Count < i);
+
                     if (group != null)
                     {
                         group.Add(book);
@@ -103,13 +97,13 @@
             switch (books.Distinct().Count())
             {
                 case 2:
-                    return twoBooksDiscountFactor;
+                    return BookPriceCalculatorHelpers.twoBooksDiscountFactor;
                 case 3:
-                    return threeBooksDiscountFactor;
+                    return BookPriceCalculatorHelpers.threeBooksDiscountFactor;
                 case 4:
-                    return fourBooksDiscountFactor;
+                    return BookPriceCalculatorHelpers.fourBooksDiscountFactor;
                 case 5:
-                    return fiveBooksDiscountFactor;
+                    return BookPriceCalculatorHelpers.fiveBooksDiscountFactor;
                 default:
                     return 1;
             }
