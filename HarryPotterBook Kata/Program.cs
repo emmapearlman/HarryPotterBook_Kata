@@ -9,10 +9,10 @@
         {
             Console.WriteLine("Hello, and welcome to a very special book shop!");
             Console.WriteLine("We only sell the first five Harry Potter books, yes really!");
-            Console.WriteLine("Please visit your local Waterstones or independent book shop to buy the others.");   
+            Console.WriteLine("Please visit your local Waterstones or independent book shop to buy the others.");
             Console.WriteLine("But... You can get discounts if you buy more than one title.");
             Console.WriteLine($"Sorry, buying mutiple copies of say, {Books.PhilosophersStone} means you pay full price for each one!");
-         
+
             do
             {
                 BuyBooks();
@@ -23,6 +23,7 @@
 
         public static void BuyBooks()
         {
+            var progHelper = new ProgramHelpers();
             Console.WriteLine();
             Console.WriteLine("--------------------------------------------------------");
 
@@ -34,17 +35,14 @@
             {
                 Console.Write($"Please enter the number of copies of {bookVolume.ToString()} you want to buy: ");
                 string? input = Console.ReadLine();
+                int quantity = progHelper.validateInput(input);
 
-                if (int.TryParse(input, out int quantity))
+                if (quantity > 0)
                 {
                     for (int i = 0; i < quantity; i++)
                     {
                         list.Add((int)bookVolume);
                     }
-                }
-                else
-                {
-                    Console.WriteLine("Invalid input, I'll assume 0");
                 }
             }
 
